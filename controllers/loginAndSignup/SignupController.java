@@ -40,9 +40,11 @@ public class SignupController {
         return new Signup(usernameSignup, passwordSignup, emailSignup, role);
     }
 
-    public void registerNewUser(Scanner scanner) {
-        Signup newUser;
-        do {
+    public Signup registerNewUser(Scanner scanner) {
+        Signup newUser = null; // Khai báo newUser ở ngoài vòng lặp
+        boolean continueSignup = true; // Biến kiểm tra xem có tiếp tục đăng ký không
+
+        while (continueSignup) {
             newUser = registerUser(scanner);
 
             boolean isValid = true; // Biến kiểm tra xem thông tin có hợp lệ không
@@ -72,16 +74,17 @@ public class SignupController {
                 System.out.println("Signup Success!");
                 Customer customer = customerService.customerInfo(scanner, newUser);
                 System.out.println("Customer information saved.");
-                new Customer(customer.getFullName(), customer.getAddress(), customer.getPhoneNumber(), newUser.getEmailSignup());
+                new Customer(customer.getFullName(), customer.getAddress(), customer.getPhoneNumber(), newUser.getEmailSignup(), customer.getTicket(), customer.getFlight());
             }
 
             System.out.println("Do you want to continue signup? (yes/no)");
             String choice = scanner.nextLine();
 
             if (!choice.equalsIgnoreCase("yes")) {
-                break;
+                continueSignup = false;
             }
-        } while (true);
+        }
+        return newUser;
     }
 
     private boolean isDuplicate(Signup newUser) {

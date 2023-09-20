@@ -1,14 +1,11 @@
 package javacore21.do_an.service;
-
 import javacore21.do_an.entity.Customer;
 import javacore21.do_an.entity.Signup;
-
 import java.util.Map;
 import java.util.Scanner;
 
 public class CustomerService {
     private Map<String, Customer> customerMap;
-
     public CustomerService(Map<String, Customer> customerMap) {
         this.customerMap = customerMap;
     }
@@ -21,7 +18,7 @@ public class CustomerService {
         System.out.println("Enter phone number: ");
         String phoneNumber = scanner.nextLine();
         String email = signup.getEmailSignup();
-        Customer customer =  new Customer(fullName, address, phoneNumber, email);
+        Customer customer = new Customer(fullName, address, phoneNumber, email, null, null);
         customerMap.put(fullName, customer);
         return customer;
     }

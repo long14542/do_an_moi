@@ -29,10 +29,10 @@ public class LoginSignupView {
                 }
             } while (choose < 1 || choose > 2);
             switch (choose){
-                case 1: loginController.login();
+                case 1: loginController.login(scanner);
                 break;
                 case 2: signupController.registerNewUser(scanner);
-                        loginController.login();
+                        loginController.login(scanner);
                         break;
             }
         }
@@ -43,6 +43,7 @@ public class LoginSignupView {
             System.out.println("2 - Change Email");
             System.out.println("3 - Change Password");
             System.out.println("4 - Logout");
+            System.out.println("5- Buy ticket");
             System.out.println("Please enter a number to choose: ");
         }
         public void loginFailed(){

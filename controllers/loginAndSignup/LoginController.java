@@ -1,10 +1,11 @@
 package javacore21.do_an.controllers.loginAndSignup;
-
-
 import javacore21.do_an.entity.Customer;
-import javacore21.do_an.entity.Signup;
-import javacore21.do_an.view.LoginSignupView;
 
+import javacore21.do_an.entity.Signup;
+
+import javacore21.do_an.service.FlightService;
+import javacore21.do_an.service.TicketService;
+import javacore21.do_an.view.LoginSignupView;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,13 +13,17 @@ public class LoginController {
     private Map<String, Signup> userDatabase;
     private Map<String, Customer> customerMap;
     private String loggedInUser;
-    private Scanner scanner;
+    TicketService ticketService;
+    private Customer customer;
+    FlightService flightService;
 
-    public LoginController(Map<String, Signup> userDatabase, String loggedInUser, Map<String, Customer> customerMap) {
+    public LoginController(Map<String, Signup> userDatabase, Map<String, Customer> customerMap, String loggedInUser, TicketService ticketService, Customer customer, FlightService flightService) {
         this.userDatabase = userDatabase;
-        this.loggedInUser = loggedInUser;
-        this.scanner = new Scanner(System.in);
         this.customerMap = customerMap;
+        this.loggedInUser = loggedInUser;
+        this.ticketService = ticketService;
+        this.customer = customer;
+        this.flightService = flightService;
     }
 
     public String getLoggedInUser() {
@@ -39,7 +44,7 @@ public class LoginController {
     LoginSignupView loginSignupView = new LoginSignupView(this, signupController);
     ForgetPassword forgetPassword = new ForgetPassword(this);
 
-    public void login() {
+    public void login(Scanner scanner) {
         boolean continueMenu = true;
 
         do {
@@ -61,8 +66,14 @@ public class LoginController {
                             case 2 -> changeEmail.newEmail(scanner);
                             case 3 -> changePass.changePassword(scanner);
                             case 4 -> {
-                                logout();
+                                logout(scanner);
                                 continueMenu = false;
+                            }
+                            case 5 -> {
+                                ticketService.selectTicketType(scanner);
+                                ticketService.bookTicket(customer, scanner);
+                                //flightService.selectFlight(scanner);
+                                //flightService.addFlight(customer, scanner);
                             }
                             default -> System.out.println("Invalid choose. Please enter again.");
                         }
@@ -102,7 +113,7 @@ public class LoginController {
     }
 
 
-    public void logout() {
+    public void logout(Scanner scanner) {
         loggedInUser = null;
         loginSignupView.SignupOrLogin(scanner);
         System.out.println("Logout success");

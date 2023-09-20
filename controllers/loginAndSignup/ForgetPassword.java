@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
 public class ForgetPassword {
     private LoginController loginController;
 
+    public ForgetPassword(LoginController loginController) {
+        this.loginController = loginController;
+    }
 
     public void checkEmail(Scanner scanner) {
         Map<String, Signup> userDatabase = loginController.getUserDatabase();

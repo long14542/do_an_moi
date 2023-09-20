@@ -7,7 +7,9 @@ import java.util.Scanner;
 public class ChangeUsername {
     private LoginController loginController;
 
-
+    public ChangeUsername(LoginController loginController) {
+        this.loginController = loginController;
+    }
 
     public void changeUsername(Scanner scanner) {
 

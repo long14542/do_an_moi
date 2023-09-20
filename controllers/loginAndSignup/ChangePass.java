@@ -8,7 +8,9 @@ import java.util.Scanner;
 public class ChangePass {
     private LoginController loginController;
 
-
+    public ChangePass(LoginController loginController) {
+        this.loginController = loginController;
+    }
 
     public void changePassword(Scanner scanner) {
         if (loginController.getLoggedInUser() == null) {
@@ -21,7 +23,7 @@ public class ChangePass {
         do {
             System.out.println("Nhập mật khẩu mới: ");
             String newPassword = scanner.nextLine();
-            if (SignupController.isValidPassword(newPassword)){
+            if (!SignupController.isValidPassword(newPassword)){
                 System.out.println("Invalid password, enter again.");
                 continue;
             }

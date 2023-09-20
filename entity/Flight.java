@@ -2,15 +2,17 @@ package javacore21.do_an.entity;
 
 public class Flight {
     private String flightID;
-    private String takeOfLocation;
-    private String landingLocation;
+    private FlightName flightName;
     private int seatNumber;
+    private String time;
+    private int gate;
 
-    public Flight(String flightID, String takeOfLocation, String landingLocation, int seatNumber) {
+    public Flight(String flightID, FlightName flightName, int seatNumber, String time, int gate) {
         this.flightID = flightID;
-        this.takeOfLocation = takeOfLocation;
-        this.landingLocation = landingLocation;
+        this.flightName = flightName;
         this.seatNumber = seatNumber;
+        this.time = time;
+        this.gate = gate;
     }
 
     public String getFlightID() {
@@ -21,20 +23,12 @@ public class Flight {
         this.flightID = flightID;
     }
 
-    public String getTakeOfLocation() {
-        return takeOfLocation;
+    public FlightName getFlightName() {
+        return flightName;
     }
 
-    public void setTakeOfLocation(String takeOfLocation) {
-        this.takeOfLocation = takeOfLocation;
-    }
-
-    public String getLandingLocation() {
-        return landingLocation;
-    }
-
-    public void setLandingLocation(String landingLocation) {
-        this.landingLocation = landingLocation;
+    public void setFlightName(FlightName flightName) {
+        this.flightName = flightName;
     }
 
     public int getSeatNumber() {
@@ -45,13 +39,29 @@ public class Flight {
         this.seatNumber = seatNumber;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getGate() {
+        return gate;
+    }
+
+    public void setGate(int gate) {
+        this.gate = gate;
+    }
+
     @Override
     public String toString() {
         return "Flight{" +
                 "flightID='" + flightID + '\'' +
-                ", takeOfLocation='" + takeOfLocation + '\'' +
-                ", landingLocation='" + landingLocation + '\'' +
+                ", flightName='" + flightName + '\'' +
                 ", seatNumber=" + seatNumber +
+                ", time='" + time + '\'' +
                 '}';
     }
 }
