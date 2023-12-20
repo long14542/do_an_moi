@@ -37,7 +37,7 @@ public class Ticket {
     }
 
     // Phương thức tính giá vé dựa trên loại vé
-    private double calculateTicketPrice(TicketType ticketType) {
+    public double calculateTicketPrice(TicketType ticketType) {
         switch (ticketType) {
             case FIRST_CLASS:
                 return 1000.0;

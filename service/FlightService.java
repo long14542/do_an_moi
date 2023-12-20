@@ -16,29 +16,42 @@ public class FlightService {
     public FlightService(Map<String, Flight> flights, TicketService ticketService) {
         this.flights = flights;
         this.ticketService = ticketService;
-
-
     }
+
 
     public List<FlightName> getAvailableFlights() {
         // Trả về danh sách các chuyến bay từ enum FlightName
         return Arrays.asList(FlightName.values());
     }
-    public FlightName selectFlight(Customer customer, Scanner scanner) {
+    public FlightName selectFlight(Customer customer) {
         List<FlightName> availableFlights = getAvailableFlights();
 
-        System.out.println("Danh sách các chuyến bay:");
-        for (int i = 0; i < availableFlights.size(); i++) {
-            System.out.println((i) + ". " + availableFlights.get(i));
-        }
+        // Kiểm tra xem map có rỗng hay không
+        //boolean isFlightsMapEmpty = flights.isEmpty();
+        //System.out.println("Map 'flights' có rỗng không: " + isFlightsMapEmpty);
+
+// In ra thông tin về các chuyến bay trong map
+        //System.out.println("Danh sách các chuyến bay trong map:");
+        //for (Map.Entry<String, Flight> entry : flights.entrySet()) {
+            //String flightID = entry.getKey();
+            //Flight flight = entry.getValue();
+            //System.out.println("FlightID: " + flightID + ", Flight: " + flight);
+        //}
+
+// Kiểm tra số lượng chuyến bay trong map
+        int numberOfFlights = flights.size();
+        System.out.println("Số lượng chuyến bay trong map: " + numberOfFlights);
+
 
         int choice;
         while (true) {
             System.out.print("Chọn chuyến bay (0-9): ");
+            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
             try {
                 choice = Integer.parseInt(input);
+                System.out.println(input);
             } catch (NumberFormatException e) {
                 System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                 continue; // Nếu không phải số nguyên, tiếp tục vòng lặp
@@ -70,6 +83,10 @@ public class FlightService {
                 int availableGate = ThreadLocalRandom.current().nextInt(1, 21); // Random số cổng từ 1 đến 20
 
                 flight = new Flight(flightID, selectedFlightName, availableSeat, time, availableGate);
+                flight.setSeatNumber(ticketService.getAvailableSeat(flight)); // hoặc setSeatNumber(availableSeat) nếu bạn muốn có giá trị ghế ngẫu nhiên
+                //flight.setTime(flight.getTime()); // Giả sử bạn muốn giữ giá trị thời gian của chuyến bay
+                flight.setGate(ThreadLocalRandom.current().nextInt(1, 21)); // Random số cổng từ 1 đến 20
+                flight.setFlightID(generateFlightID(selectedFlightName));
                 flights.put(flight.getFlightID(), flight);
                 customer.setFlight(flight);
                 System.out.println("Add flight successfully.");

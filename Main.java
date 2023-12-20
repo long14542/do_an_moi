@@ -7,6 +7,7 @@ import javacore21.do_an.entity.Signup;
 import javacore21.do_an.entity.Ticket;
 import javacore21.do_an.service.CustomerService;
 import javacore21.do_an.service.FlightService;
+import javacore21.do_an.service.MapCheck;
 import javacore21.do_an.service.TicketService;
 import javacore21.do_an.view.LoginSignupView;
 
@@ -42,7 +43,9 @@ public class Main {
             customer = customerService.customerInfo(scanner, signup);
             //ticketService.selectTicketType(scanner);
             ticketService.bookTicket(customer, scanner);
-            //flightService.selectFlight(scanner);
+            //MapCheck mapCheck = new MapCheck();
+            //mapCheck.displayFlightMapInfo(flightMap);
+            flightService.selectFlight(customer);
             //flightService.addFlight(customer, scanner);
 
             // Hỏi người dùng có muốn tiếp tục đăng ký hay không

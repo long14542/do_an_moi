@@ -30,6 +30,7 @@ public class TicketService {
 
         String input = scanner.nextLine().toUpperCase();
         try {
+
             return TicketType.valueOf(input);
         } catch (IllegalArgumentException e) {
             System.out.println("Loại vé không hợp lệ. Vui lòng chọn lại.");
@@ -39,10 +40,11 @@ public class TicketService {
 
     public boolean bookTicket(Customer customer, Scanner scanner) {
         FlightService flightService = new FlightService(flights, this);
-        FlightName selectedFlightName = flightService.selectFlight(customer, scanner);
+        FlightName selectedFlightName = flightService.selectFlight(customer);
         String flightID = flightService.generateFlightID(selectedFlightName);
         // Sử dụng generateFlightID thay vì generateUniqueID
         Flight flight = flights.get(flightID);
+
         if (flight == null) {
             System.out.println("Chuyến bay không tồn tại.");
             return false;
@@ -64,6 +66,10 @@ public class TicketService {
         }
 
         Ticket ticket = new Ticket(ticketID, selectedTicketType);
+        ticket.calculateTicketPrice(selectedTicketType);
+        ticket.setTicketID(generateUniqueID());
+        ticket.setTicketPrice(ticket.calculateTicketPrice(selectedTicketType));
+        ticket.setTicketType(selectedTicketType);
         tickets.put(ticket.getTicketID(), ticket);
 
         flight.setSeatNumber(flight.getSeatNumber() - 1); // Giảm số lượng ghế trống
